@@ -1,0 +1,4 @@
+<option selected >Please Choose one</option>
+<option value="relative"> Relative of Employee/Student </option>
+<option value="ex-person"> Employee/ Ex-employee/ Ex-Alumni </option>
+<option value="other"> Other Govt. Organisation </option>
