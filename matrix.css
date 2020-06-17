@@ -1,0 +1,103 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+  }
+  ::selection {
+  background-color: #eee;
+  }
+  ::-moz-selection {
+  background-color: #eee;
+  }
+  body {
+  font-size: 16px;
+  
+  }
+  .building {
+  margin: 20px auto;
+  margin-top: 60px;
+  margin-bottom: 200px;
+  width: 100%;
+  max-width: 1100px;
+  border-radius: 5px;
+  background-color: rgb(157, 240, 219);
+  padding: 20px 10px;
+  box-shadow: 0px 0px 17px -4px #000;
+  }
+  .screen-side {
+  text-align: center;
+  }
+  .screen-side .screen {
+  height: 25px;
+  margin: 0 20px;
+  border-radius: 50%;
+  box-shadow: 0px -3px 0px 1px #ccc;
+  color: #ccc;
+  }
+  .screen-side .select-text {
+  color: #0f0f0f;
+  }
+  
+  ol {
+  list-style: none;
+  padding: 0 0;
+  margin: 0;
+  }
+  .rooms {
+  align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  margin-left: 0;
+  }
+  .room {
+  display: flex;
+  flex: 0 0 6%;
+  padding: 4px;
+  position: relative;
+  margin:2px;
+  }
+  
+  
+  .room input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  }
+  .room input[type="checkbox"]:checked + label {
+  background: #bada55;
+  }
+  .room input[type="checkbox"]:disabled + label {
+  background: crimson;
+  text-indent: -9999px;
+  overflow: hidden;
+  }
+  .room input[type="checkbox"]:disabled + label:after {
+  content: "Booked";
+  text-indent: 0;
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  }
+  .room input[type="checkbox"]:disabled + label:hover {
+  box-shadow: none;
+  cursor: not-allowed;
+  }
+  .room label {
+  display: block;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.5rem;
+  padding: 4px 0;
+  color: #fff;
+  background: #5F9EA0;
+  border-radius: 2px;
+  }
+ 
+  .room label:hover {
+  cursor: pointer;
+  box-shadow: 0px 0 7px 3px #ccc;
+  }
+  
