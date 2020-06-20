@@ -21,6 +21,7 @@
                         <th>Booking status</th>
                     </tr>
 					<?php
+                        session_start();
 					    $con=mysqli_connect("localhost","root","","guests") or die(mysqli_error());
 					    if(mysqli_connect_errno())
 					        echo "Failed to connect to Database : ".mysqli_connect_error();
