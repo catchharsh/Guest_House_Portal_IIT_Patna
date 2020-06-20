@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
     <title>Availability</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style1.css" />
 </head>
 <script type="text/javascript" language="javascript">
     function checkInp()
