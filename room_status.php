@@ -1,118 +1,60 @@
 <?php
-session_start();
-$DB_HOST='localhost';
-$DB_USER='root';
-$DB_PASS='';
-$DB_NAME='guests';
-$con = mysqli_connect($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
-if(mysqli_connect_errno()){
-    die('Failed to connect to MySQL: '.mysqli_connect_error());
-}
-$from=$_SESSION['check_in'];
-$to=$_SESSION['check_out'];
-$sql = "SELECT room_id FROM rooms WHERE state='bad'";
-$blocked_rooms = mysqli_query($con,$sql);
-$query = "SELECT room_id,floor FROM room_status WHERE (start_date >= '$from' AND start_date <= '$to') OR (end_date >= '$from' AND end_date <= '$to' ) OR ('$from'>=start_date AND '$to'<=end_date)";
-$booked_rooms = mysqli_query($con,$query);
-$query1 = "SELECT room_id,floor FROM rooms WHERE state='good' OR state='bad'";
-$rooms= mysqli_query($con,$query1); 
-$blocked_rooms_array=[];
-$booked_rooms_array=[];
-while($r = mysqli_fetch_assoc($blocked_rooms))
-{
-    $blocked_rooms_array[]=$r['room_id'];
-}
-while($rr  = mysqli_fetch_assoc($booked_rooms))
-{
-    $booked_rooms_array[]=$rr['room_id'];
-}
-// echo mysqli_num_rows($booked_rooms)."</br>".count($booked_rooms_array)."</br>".mysqli_num_rows($rooms)."</br>".mysqli_num_rows($blocked_rooms)."</br>";
-if(mysqli_num_rows($rooms) != 0){
-    ?>
-    <link rel="stylesheet" type="text/css" href="matrix.css">
-   
-     <div class="building">
-     <div class="screen-side">
-       <div class="screen"></div>
-       <h3 class="select-text">Please select your rooms.</h3>
-     </div>
-     <form class="form" id="room" action="chosenrooms.php" method="post" name="room">
-     <ol class="cabin">
-       <?php
-       $row2=array();
-       while($row = mysqli_fetch_array($rooms))
+ session_start();
+ $arrival = $_SESSION['check_in'];
+ $depart = $_SESSION['check_out'];
+ $rooms_limit = $_SESSION['number_of_rooms']; 
+?>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose your rooms</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="css/matrix.css">
+
+  <script type="text/javascript" language="javascript">
+  function checkThis(Checkbox, limit)
+  {
+    var result='<?php echo $rooms_limit?>';
+    limit=result;
+    var check_box,i=0,n=limit;
+    var Form = Checkbox.form;
+    while(checkbox = Form.elements[i++])
+    {
+       if(checkbox.className = 'single-checkbox' && checkbox.checked) n--;
+       if(n<0)
        {
-         $row2[]=$row;
+         alert('Please select no more than '+ limit +' rooms. ')
+         return false;
        }
-       for ($i=1; $i <=4; $i++) {
-         $j=0;
-         ?>
-       <li class="rows row--<?php echo $i ?>">
-         <ol class="rooms" type="A">
-           <?php foreach ($row2 as $row1)
-           {   
-             if ($row1["floor"]==$i)
-             {
-               if(!isset($booked_rooms_array))
-               {
-                echo "hi"."</br>";
-               echo '<li class="room">
-                 <input class="single-checkbox" type="checkbox" name="check_list[]" onclick=" return checkThis(this,1)" value="'.$row1["room_id"].'" id="'.$row1["room_id"].'" />
-                 <label for="'.$row1["room_id"].'">'.$row1["room_id"].'</label>
-               </li>';
-               }
-               else
-               {
-                 if(!(in_array($row1['room_id'],$booked_rooms_array)))
-                 {
-                   echo '<li class="room">
-                     <input class="single-checkbox" type="checkbox" name="check_list[]" onclick=" return checkThis(this,1)" value="'.$row1["room_id"].'" id="'.$row1["room_id"].'" />
-                     <label for="'.$row1["room_id"].'">'.$row1["room_id"].'</label>
-                   </li>';
-                 }
-                 else
-                 {
-                   echo '<li class="room">
-                   <input class="single-checkbox" type="checkbox" name="check_list[]" onclick=" return checkThis(this,1)" disabled value="'.$row1["room_id"].'" id="'.$row1["room_id"].'" />
-                   <label for="'.$row1["room_id"].'">'.$row1["room_id"].'</label>
-                   </li>';
-                 }
-               }
-             }
-             $j++;
-           }
-          ?>
-        </ol>
-      </li>
-       <?php } }
-       ?>
-   
-         </ol>
-         <button type="submit" class="btn btn-primary" id="roomsubmit" name="roomschosen" style="margin: 2.5% auto 2.5%; display:block;">Submit</button>
-         </form>
-   
-   <div class="align" style="display: flex; margin-left:25%;">
-     <figure style="display: flex; float:left; margin-right:3%;">
-       <img src="green.png" alt="" style="height:20px; width:20px; display:inline-block; margin-left:5%; margin-right:2%;">
-       <figcaption style="float:right; margin-left:5%; display:inline-block;">Selected</figcaption>
-     </figure>
-     <figure style="display: flex; float:left; margin-right:3%;">
-       <img src="crimson.png" alt="" style="height:20px; width:20px; display:inline-block; margin-left:5%; margin-right:2%;">
-       <figcaption style="float:right; margin-left:5%;">Booked</figcaption>
-     </figure>
-     <figure style="display: flex;float:left; margin-right:3%;">
-       <img src="blue.png" alt="" style="height:20px; width:20px; display:inline-block; margin-left:5%; margin-right:2%;">
-       <figcaption style="float:right; margin-left:5%;">Normal </figcaption>
-     </figure>
-     <figure style="display: flex; float:left; margin-right:3%;">
-       <img src="orange.png" alt="" style="height:20px; width:20px; display:inline-block; margin-left:5%; margin-right:2%;">
-       <figcaption style="float:right; margin-left:5%;">Blocked</figcaption>
-     </figure>
-   </div>
-   
-   </div>
+    }
+    return true;
+  }
+  function validateForm()
+  {
+    var inputs = document.getElementsByTagName("input");
+    var count =0;
+    for(var i=0;i<inputs.length ;i++)
+    {
+      if(inputs[i].type == "checkbox")
+      {
+        if(inputs[i].checked)
+          count = count+1;
+      }
+    }
+    var limit = '<?php echo $rooms_limit ?>';
+    if(count != limit){
+      alert('Please select atleast ' + limit + ' rooms.');
+      return false;
+    }
+  }
+  </script>
 
-
-
-
-
+  </head>
+  <body class="root">
+    <?php require_once("template.php"); ?>
+  </body>
+</html>
