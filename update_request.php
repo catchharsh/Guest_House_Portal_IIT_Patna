@@ -26,6 +26,8 @@
         if(isset($_POST[$confirm_counter]))
         {
             $_SESSION['booking_id']=$book_id;
+            $update_query="UPDATE guest_info SET booking_status='CONFIRMED' WHERE booking_id='$book_id' ";
+            $update_result=mysqli_query($con,$update_query);
             header("Location: room_status.php");
         }
         $confirm_counter++;
