@@ -1,8 +1,19 @@
+ <?php
+session_start();
+if (empty(($_SESSION['username']))) {
+	header('Location: index.html');
+	exit();
+}
+?>  
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
+    
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style1.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    
 </head>
 <script type="text/javascript" language="javascript">
     function checkInp()
@@ -29,28 +40,29 @@
     }
 </script>
 <body>
-    <div class="form" style="text-align: center;">
-        <h2 align="center">Choose search parameters</a></h2>
-        <br />
         <form name="search_parameters" method="post" onsubmit="return checkInp()" >
-            <p>User ID: <input type="text" name="id" placeholder="ALL"></p>
-            <p>Check-in date: <input type="date" name="check_in" data-date-format="yyyy-mm-dd" placeholder="ALL"></p>
-            <p>Check-out date: <input type="date" name="check_out" data-date-format="yyyy-mm-dd" placeholder="ALL"></p>
-            <p>Payment Status: 
-                <select name="payment">
+            <a href='home.php' style='float:right;'> <label > Home Page </label> </a>
+            <div class='header'><h4>Choose search Parameters</h4></div></br>
+            <div class='input-group'> <label>User ID:</label> <input type="text" name="id" placeholder="ALL"></div>
+            <div class='input-group'> <label>Check-in date:</label> <input type="date" name="check_in" data-date-format="yyyy-mm-dd" placeholder="ALL"></div>
+            <div class='input-group'> <label>Check-out date:</label> <input type="date" name="check_out" data-date-format="yyyy-mm-dd" placeholder="ALL"></div>
+            <div class='input-group'>
+                <label>Payment Status:</label> 
+                <select name='payment' id = 'payment'>
                     <option value="ALL">ALL</option>
                     <option value="PENDING">PENDING</option>
                     <option value="CONFIRMED">CONFIRMED</option>
                 </select>
-            </p>
-            <p>Booking Status: 
-                <select name="confirmation">
+            </div>
+            <div class='input-group'>
+                <label>Booking Status:</label> 
+                <select name="confirmation" id='confirmation' >
                     <option value="ALL">ALL</option>
                     <option value="PENDING">PENDING</option>
                     <option value="CONFIRMED">CONFIRMED</option>
                 </select>
-            </p>
-            <p><input type="submit" name="submit" value="Submit"></p>
+            </div>
+            <div style="text-align:center;"><input type="submit" class='btn' name="submit" value="Submit"></div>
       </form>
 <?php
     $con=mysqli_connect("localhost","root","","guests") or die(mysqli_error());
