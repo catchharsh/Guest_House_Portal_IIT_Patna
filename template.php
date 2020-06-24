@@ -1,11 +1,4 @@
 <?php
-session_start();
-if (empty(($_SESSION['username']))) {
-	header('Location: index.html');
-	exit();
-}
-?> 
-<?php
 $DB_HOST='localhost';
 $DB_USER='root';
 $DB_PASS='';
