@@ -43,23 +43,26 @@ if (empty(($_SESSION['username']))) {
                         $serial_number=1;
                         $confirm_counter="confirm1";
                         $decline_counter="decline1";
-                        while($row = mysqli_fetch_array($result))
+                        if($result)
                         {
-                            echo '
-                            <tr>
-                            <td>'.$serial_number.'</td>
-                            <td>'.$row["booking_id"].'</td>
-                            <td>'.$row["rooms"].'</td>
-                            <td>'.$row["check_in"].'</td>
-                            <td>'.$row["check_out"].'</td>
-                            <td> <input name='.$confirm_counter.' type="submit" value="Confirm"/> </td>
-                            <td> <input name='.$decline_counter.' type="submit" value="Decline"/> </td>
-                            </tr>
-                            ';
-                            $confirm_counter++;
-                            $decline_counter++;
-                            $serial_number++;
-                        }   
+                            while($row = mysqli_fetch_array($result))
+                            {
+                                echo '
+                                <tr>
+                                <td>'.$serial_number.'</td>
+                                <td>'.$row["booking_id"].'</td>
+                                <td>'.$row["rooms"].'</td>
+                                <td>'.$row["check_in"].'</td>
+                                <td>'.$row["check_out"].'</td>
+                                <td> <input name='.$confirm_counter.' type="submit" value="Confirm"/> </td>
+                                <td> <input name='.$decline_counter.' type="submit" value="Decline"/> </td>
+                                </tr>
+                                ';
+                                $confirm_counter++;
+                                $decline_counter++;
+                                $serial_number++;
+                            }   
+                        }
                     ?>
                 </table>
             </div>
