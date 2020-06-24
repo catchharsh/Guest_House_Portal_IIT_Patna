@@ -1,3 +1,10 @@
+ <?php
+session_start();
+if (empty(($_SESSION['username']))) {
+	header('Location: index.html');
+	exit();
+}
+?> 
 <!DOCTYPE html>
 <html>
 <head> 
@@ -39,8 +46,8 @@
             return false;
         }
         var cur = Date();
-        var startDt = document.forms['booking_form']['check_in'].value;
-        var endDt   = document.forms['booking_form']['check_out'].value;
+        var startDt = document.forms['booking_form']['chin'].value;
+        var endDt   = document.forms['booking_form']['chout'].value;
         if(Date.parse(startDt)>Date.parse(endDt) )
         {
             alert('End date should be greater than starting date');
@@ -80,7 +87,8 @@
     
     <form name='booking_form' action='booking.php' onsubmit="return validateForm()" method='POST' enctype="multipart/form-data">
 
-        <img src='iitp.png' alt = 'iitp_logo' style="float:left;width:18%;height=18%;">
+        <img src='iitp.png' alt = 'iitp_logo' style="float:left;width:18%;height:18%;">
+        <a href='home.php' style="float:right;"> <label > Home Page </label> </a>
         <div class="header"> <h2>Guest Details</h2> </div>
         <div class="input-group">
   	   <label>Name</label>
@@ -113,12 +121,12 @@
 
       <div class="input-group">
   	  <label>Check-In Date</label>
-  	  <input type="date" name="check_in"  required>
+  	  <input type="date" name="chin"  required>
       </div>
 
       <div class="input-group">
   	  <label>Check-Out Date</label>
-  	  <input type="date" name="check_out" required>
+  	  <input type="date" name="chout" required>
       </div>
 
       
@@ -127,7 +135,7 @@
       <div class="header"> <h2>Indentor Details</h2> </div>
       <div class="input-group">
   	  <label>Your Name</label>
-  	  <input type="text" name="username" placeholder='Your Name' required>
+  	  <input type="text" name="user" placeholder='Your Name' required>
       </div>
 
       <div class="input-group">
