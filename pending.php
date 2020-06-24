@@ -55,25 +55,28 @@ if (empty(($_SESSION['username']))) {
                     <?php
                         $serial_number=1;
                         $counter="dropdown1";
-                        while($row = mysqli_fetch_array($result))
+                        if($result)
                         {
-                            echo '
-                            <tr>
-                            <td>'.$serial_number.'</td>
-                            <td>'.$row["booking_id"].'</td>
-                            <td>'.$row["rooms"].'</td>
-                            <td>'.$row["check_in"].'</td>
-                            <td>'.$row["check_out"].'</td>
-                            <td> <select name='.$counter.'>
-                                    <option value="PENDING">PENDING</option>
-                                    <option value="CONFIRMED">CONFIRMED</option>
-                                </select>
-                             </td>
-                            </tr>
-                            ';
-                            $counter++;
-                            $serial_number++;
-                        }   
+                            while($row = mysqli_fetch_array($result))
+                            {
+                                echo '
+                                <tr>
+                                <td>'.$serial_number.'</td>
+                                <td>'.$row["booking_id"].'</td>
+                                <td>'.$row["rooms"].'</td>
+                                <td>'.$row["check_in"].'</td>
+                                <td>'.$row["check_out"].'</td>
+                                <td> <select name='.$counter.'>
+                                        <option value="PENDING">PENDING</option>
+                                        <option value="CONFIRMED">CONFIRMED</option>
+                                    </select>
+                                 </td>
+                                </tr>
+                                ';
+                                $counter++;
+                                $serial_number++;
+                            }   
+                        }
                     ?>
                 </table>
             </div>
