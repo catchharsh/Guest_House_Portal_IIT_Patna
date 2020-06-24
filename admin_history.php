@@ -144,20 +144,23 @@ if (empty(($_SESSION['username']))) {
               </tr>
           <?php
               $serial_number=1;
-              while($row = mysqli_fetch_array($result))
+              if($result)
               {
-                  echo '
-                  <tr>
-                  <td>'.$serial_number.'</td>
-                  <td>'.$row["user_id"].'</td>
-                  <td>'.$row["check_in"].'</td>
-                  <td>'.$row["check_out"].'</td>
-                  <td>'.$row["payment_status"].'</td>
-                  <td>'.$row["booking_status"].'</td>
-                  </tr>
-                  ';
-                  $serial_number++;
-              }  
+                while($row = mysqli_fetch_array($result))
+                {
+                    echo '
+                    <tr>
+                    <td>'.$serial_number.'</td>
+                    <td>'.$row["user_id"].'</td>
+                    <td>'.$row["check_in"].'</td>
+                    <td>'.$row["check_out"].'</td>
+                    <td>'.$row["payment_status"].'</td>
+                    <td>'.$row["booking_status"].'</td>
+                    </tr>
+                    ';
+                    $serial_number++;
+                }  
+              }
             } 
           ?>
           </table>
