@@ -1,12 +1,18 @@
+ <?php
+session_start();
+if (empty(($_SESSION['username']))) {
+	header('Location: index.html');
+	exit();
+}
+?> 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <?php
-	session_start();
     $con=mysqli_connect("localhost","root","","guests") or die(mysqli_error());
     if(mysqli_connect_errno())
         echo "Failed to connect to Database : ".mysqli_connect_error();
@@ -24,8 +30,11 @@
             $counter++;
         }
     }
-    echo '<h1>Record updated successfully</h1>';
-	echo '<a href="pending.php">Click here to go back to previous page</a>';
+      echo "
+          <div class='header'> <h2>Record Updated Successfully</h2> </div> </br>
+          <p align='center'> <a href='pending.php'>Click here to go back to previous page</a></p></br>
+          <p align='center'> <a href='home.php'>  Home Page  </a> </p>
+          ";
 ?>
 </body>
 </html>
