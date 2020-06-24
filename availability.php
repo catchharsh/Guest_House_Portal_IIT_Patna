@@ -1,8 +1,15 @@
+<?php
+session_start();
+if (empty(($_SESSION['username']))) {
+	header('Location: index.html');
+	exit();
+}
+?>  
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
     <title>Availability</title>
-    <link rel="stylesheet" href="css/style1.css" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <script type="text/javascript" language="javascript">
     function checkInp()
@@ -40,20 +47,19 @@
           }
     }
 </script>
-<body>
-    <div class="form">
-        <h1>Availability Status</h1>
+<body>        
         <form name="availability_form" method="post" onsubmit="return checkInp()" action="">
-            <p>Number of Rooms: <input type="text" name="rooms" value="" required></p>
-            <p>Number of Guests: </p> 
-            <p>Adults: <input type="text" name="adults" value="" required></p>
-            <p>Children: <input type="text" name="children" value="" required></p>
-            <p>Check-in date: <input type="date" name="check_in" data-date-format="yyyy-mm-dd" required></p>
-            <p>Check-out date: <input type="date" name="check_out" data-date-format="yyyy-mm-dd" required></p>
-            <p><input type="submit" name="check" value="Check"></p>
+        <img src='iitp.png' alt = 'iitp_logo' style="float:left;width:18%;height:18%;">
+        <a href='home.php' style="float:right;"> <label > Home Page </label> </a>
+            <div class='header'><h2>Availability Status</h2></div>
+            <div class='input-group'>Number of Rooms: <input type="text" name="rooms" value="" required></div>
+            <div class='input-group'>Adults: <input type="text" name="adults" value="" required></div>
+            <div class='input-group'>Children: <input type="text" name="children" value="" required></div>
+            <div class='input-group'>Check-in date: <input type="date" name="check_in" data-date-format="yyyy-mm-dd" required></div>
+            <div class='input-group'>Check-out date: <input type="date" name="check_out" data-date-format="yyyy-mm-dd" required></div>
+            <div class='input-group'><input type="submit" class="btn" name="check" value="Check"></button></div>
             <input type="hidden" name="form_submitted" value="1">
       </form>
-  </div>
     <?php
         $con=mysqli_connect("localhost","root","","guests") or die(mysqli_error());
         if(mysqli_connect_errno())
@@ -87,11 +93,9 @@
             }   
             $available_rooms=$total_room-$occupied;
             $available_rooms=max(0,min($available_rooms,$rooms));
-            echo "<div class='form'> <h2>Available rooms : ".$available_rooms."</h2>";
-            echo "<br/><a href='booking.php'>Click here for Booking</a>";
+            echo "<div class='header'> <h2>Available rooms : ".$available_rooms."</h2></div></br>";
+            echo "<p align='center'><a href='bookings.php'>Click here for Booking</a></p></br>";
         }
     ?>
 </body>
 </html>
-
-    
