@@ -37,23 +37,26 @@ if (empty(($_SESSION['username']))) {
 					    $data="SELECT * FROM `guest_info` WHERE user_id=$id ";
 					    $result=mysqli_query($con,$data);
 					    $serial_number=1;
-					    while($row = mysqli_fetch_array($result))
-    					{
-    						echo '
-                            <tr>
-                            <td>'.$serial_number.'</td>
-                            <td>'.$row["booking_id"].'</td>
-                            <td>'.$row["rooms"].'</td>
-                            <td>'.$row["check_in"].'</td>
-                            <td>'.$row["check_out"].'</td>
-                            <td>'.$row["payment_status"].'</td>
-                            <td>'.$row["booking_status"].'</td>
-                            </td>
-                            </tr>
-                            ';
-                            $serial_number++;
+                        if($result)
+                        {
+    					    while($row = mysqli_fetch_array($result))
+        					{
+        						echo '
+                                <tr>
+                                <td>'.$serial_number.'</td>
+                                <td>'.$row["booking_id"].'</td>
+                                <td>'.$row["rooms"].'</td>
+                                <td>'.$row["check_in"].'</td>
+                                <td>'.$row["check_out"].'</td>
+                                <td>'.$row["payment_status"].'</td>
+                                <td>'.$row["booking_status"].'</td>
+                                </td>
+                                </tr>
+                                ';
+                                $serial_number++;
+                            }
+                            $con->close();
                         }
-                        $con->close();
 					?>
                 </table>
             </div>
