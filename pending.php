@@ -50,6 +50,7 @@ if (empty(($_SESSION['username']))) {
                         <th>Rooms</th>
                         <th>Check In</th>
                         <th>Check Out</th>
+                        <th>Proof of Payment</th>
                         <th>Payment status</th>
                     </tr>
                     <?php
@@ -58,21 +59,22 @@ if (empty(($_SESSION['username']))) {
                         if($result)
                         {
                             while($row = mysqli_fetch_array($result))
-                            {
-                                echo '
+                            { ?>
+                                
                                 <tr>
-                                <td>'.$serial_number.'</td>
-                                <td>'.$row["booking_id"].'</td>
-                                <td>'.$row["rooms"].'</td>
-                                <td>'.$row["check_in"].'</td>
-                                <td>'.$row["check_out"].'</td>
-                                <td> <select name='.$counter.'>
+                                <td><?php echo $serial_number ?></td>
+                                <td><?php echo $row["booking_id"] ?></td>
+                                <td><?php echo $row["rooms"] ?></td>
+                                <td><?php echo $row["check_in"] ?></td>
+                                <td><?php echo $row["check_out"] ?></td>
+                                <td> <a href="download.php?id=<?php echo $row["booking_id"] ?>" class="btn btn-primary">Download</a> </td>
+                                <td> <select name="<?php echo $counter ?>" >
                                         <option value="PENDING">PENDING</option>
                                         <option value="CONFIRMED">CONFIRMED</option>
                                     </select>
                                  </td>
                                 </tr>
-                                ';
+                            <?php
                                 $counter++;
                                 $serial_number++;
                             }   
