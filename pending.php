@@ -1,5 +1,11 @@
 <?php
-    session_start();
+session_start();
+if (empty(($_SESSION['username']))) {
+	header('Location: index.html');
+	exit();
+}
+?> 
+<?php
     $con=mysqli_connect("localhost","root","","guests") or die(mysqli_error());
     if(mysqli_connect_errno())
         echo "Failed to connect to Database : ".mysqli_connect_error();
@@ -11,9 +17,25 @@
     <meta charset="utf-8">
     <title>Payment confirmation</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <style>
+        a:link, a:visited {
+            background-color: white;
+            color: black;
+            border: 2px solid  #5F9EA0;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        a:hover, a:active {
+            background-color: #5F9EA0;
+            color: white;
+  }
+    </style>
 </head>
 <html>
     <body>
+    <a href='home.php' style="float:right;"> <label > Home Page </label> </a>
         <div class="container">
             <h2 align="center">Confirm payment of booking</a></h2>
             <br />
@@ -62,4 +84,3 @@
         </div>
     </body>
 </html>
-
