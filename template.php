@@ -1,4 +1,11 @@
 <?php
+session_start();
+if (empty(($_SESSION['username']))) {
+	header('Location: index.html');
+	exit();
+}
+?> 
+<?php
 $DB_HOST='localhost';
 $DB_USER='root';
 $DB_PASS='';
@@ -20,14 +27,15 @@ while($rr  = mysqli_fetch_assoc($booked_rooms))
 }
 if(mysqli_num_rows($rooms) != 0){
     ?>
+    
     <link rel="stylesheet" type="text/css" href="matrix.css">
-   
      <div class="building">
      <div class="screen-side">
        <div class="screen"></div>
        <h3 class="select-text">Please select your rooms.</h3>
      </div>
      <form class="form" id="room" action="chosenrooms.php" onsubmit="return validateForm()" method="post" name="room">
+     <img src='iitp.png' alt = 'iitp_logo' style="float:right;width:10%;height=10%;">
      <ol class="cabin">
        <?php
        $all_rooms=array();
@@ -70,7 +78,7 @@ if(mysqli_num_rows($rooms) != 0){
          </ol>
          <button type="submit" class="btn btn-primary" id="roomsubmit"  name="roomschosen" style="margin: 2.5% auto 2.5%; display:block;">Submit</button>
          </form>
-         
+
    <div class="align" style="display: flex; margin-left:25%;">
      <figure style="display: flex; float:left; margin-right:3%;">
        <img src="green.png" alt="" style="height:20px; width:20px; display:inline-block; margin-left:5%; margin-right:2%;">
@@ -87,3 +95,8 @@ if(mysqli_num_rows($rooms) != 0){
    </div>
    
    </div>
+
+
+
+
+
