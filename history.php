@@ -1,11 +1,20 @@
+ <?php
+session_start();
+if (empty(($_SESSION['username']))) {
+	header('Location: index.html');
+	exit();
+}
+?> 
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
     <title>History</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style1.css"/>
 </head>
 <html>
 	<body>
+        <a href='home.php' style='float:right;'> <label > Home Page </label> </a>
 		<div class="container">
 			<h3 align="center">Booking history</h3>
             <br />
@@ -21,11 +30,10 @@
                         <th>Booking status</th>
                     </tr>
 					<?php
-                        session_start();
 					    $con=mysqli_connect("localhost","root","","guests") or die(mysqli_error());
 					    if(mysqli_connect_errno())
 					        echo "Failed to connect to Database : ".mysqli_connect_error();
-					    $id="16";
+					    $id=$_SESSION['user_id'];
 					    $data="SELECT * FROM `guest_info` WHERE user_id=$id ";
 					    $result=mysqli_query($con,$data);
 					    $serial_number=1;
@@ -44,7 +52,8 @@
                             </tr>
                             ';
                             $serial_number++;
-    					}
+                        }
+                        $con->close();
 					?>
                 </table>
             </div>
