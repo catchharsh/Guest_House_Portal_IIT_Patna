@@ -8,13 +8,6 @@ body {
 .clearfix:after{
      clear: both;
 }
-a{
-     color:#0067ab;
-     text-decoration:none;
-}
-a:hover{
-     text-decoration:underline;
-}
 .form{
      width: 300px;
      margin: 0 auto;
@@ -42,4 +35,17 @@ input[type='submit']{
 }
 input[type='submit']:hover {
      background-color: #024978;
+}
+a:link, a:visited {
+     background-color: white;
+     color: black;
+     border: 2px solid  #5F9EA0;
+     padding: 10px 20px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+   }   
+a:hover, a:active {
+background-color: #5F9EA0;
+color: white;
 }
