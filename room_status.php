@@ -1,5 +1,11 @@
 <?php
- session_start();
+session_start();
+if (empty(($_SESSION['username']))) {
+	header('Location: index.html');
+	exit();
+}
+?> 
+<?php
  $arrival = $_SESSION['check_in'];
  $depart = $_SESSION['check_out'];
  $rooms_limit = $_SESSION['number_of_rooms']; 
