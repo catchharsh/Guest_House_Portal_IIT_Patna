@@ -29,7 +29,10 @@ if (empty(($_SESSION['username']))) {
         <table> 
             <?php
               $admin_user = '1801CS21';
-              if ($_SESSION['username'] ==  $admin_user)
+              $check_username = $_SESSION['username'];
+              $check_username = strtolower($check_username);
+              $admin_user = strtolower($admin_user);
+              if ($check_username ==  $admin_user)
               {
                   echo "
                   <div class= 'header'><a href='admin_history.php'> <label > Admin History </label> </a> </div>
