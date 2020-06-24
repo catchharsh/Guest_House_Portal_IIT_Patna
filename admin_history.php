@@ -92,20 +92,20 @@ if (empty(($_SESSION['username']))) {
             if($first==0)
             {
                 $first=1;
-                $query.=" WHERE check_in='$check_in' ";
+                $query.=" WHERE check_in>='$check_in' ";
             }
             else
-                $query.=" AND check_in='$check_in' ";  
+                $query.=" AND check_in>='$check_in' ";  
         }
         if($check_out!=0)
         {
             if($first==0)
             {
                 $first=1;
-                $query.=" WHERE check_out='$check_out' ";
+                $query.=" WHERE check_out<='$check_out' ";
             }
             else
-                $query.=" AND check_out='$check_out' ";  
+                $query.=" AND check_out<='$check_out' ";  
         }
         if($payment!="ALL")
         {
