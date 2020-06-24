@@ -1,5 +1,17 @@
 <?php
-    session_start();
+session_start();
+if (empty(($_SESSION['username']))) {
+	header('Location: index.html');
+	exit();
+}
+?>
+<!DOCTYPE HTML>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<?php
     $DB_HOST='localhost';
     $DB_USER='root';
     $DB_PASS='';
@@ -27,15 +39,22 @@
                     if($stmt = $con->prepare("INSERT INTO bookings(booking_id, user_id, room_id, start_date, end_date) VALUES(?,?,?,?,?)"))
                     {
                         $stmt->bind_param("sssss",$book_id, $user_id, $item, $check_in, $check_out);
-                        $stmt->execute();
-                        echo "Bookings Done";
+                        $xx = $stmt->execute();
+                        if(false === $xx) {
+                            die('execute() failed: ' . htmlspecialchars($stmt->error));
+                        }
                     }
                     else{
                         echo "Couldn't Prepare the statsment";
                     }
                 }
             }
+           echo "<div class='header'> <h2> Boookings Done </h2> </div>";
+           echo "<div class='header'> <a href='home.php' style='float:center;'> <label >Home Page </label> </a> </div> ";
 
         }
     }
 ?>
+
+</body>
+</html>
