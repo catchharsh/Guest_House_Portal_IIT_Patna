@@ -14,8 +14,9 @@ if (empty(($_SESSION['username']))) {
 <script>
     function validateForm()
     {
+        var to_match = /^[1-9]\d{9}$/ ;
         var x=document.forms['booking_form']['contact'].value;
-        if(!x.match('[0-9]{10}')) {
+        if(!x.match(to_match)) {
             alert("Please put 10 digit Contact Number");
             return false;
             }
@@ -58,6 +59,11 @@ if (empty(($_SESSION['username']))) {
             alert('End date should be greater than current date');
             return false;
         }
+        if(Date.parse(cur)>Date.parse(startDt))
+        {
+            alert('Start date should be greater than current date');
+            return false;
+        }
         }
 </script>
 
@@ -87,7 +93,7 @@ if (empty(($_SESSION['username']))) {
     
     <form name='booking_form' action='booking.php' onsubmit="return validateForm()" method='POST' enctype="multipart/form-data">
 
-        <img src='iitp.png' alt = 'iitp_logo' style="float:left;width:18%;height:18%;">
+        <img src='iitp.png' alt = 'iitp_logo' style="float:left;width:15%;height:15%;">
         <a href='home.php' style="float:right;"> <label > Home Page </label> </a>
         <div class="header"> <h2>Guest Details</h2> </div>
         <div class="input-group">
@@ -145,7 +151,7 @@ if (empty(($_SESSION['username']))) {
 
       <div class="input-group">
   	  <label>Contact Number:</label>
-        <input type="tel" name="contact" placeholder='Your Contact Number' required>
+        <input type="tel" name="contact" placeholder='Please put a correct 10 digit contact number' required>
       </div>
 
 
