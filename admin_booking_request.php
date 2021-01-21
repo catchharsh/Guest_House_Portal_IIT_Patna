@@ -1,4 +1,4 @@
- <?php
+<?php
 session_start();
 if (empty(($_SESSION['username']))) {
 	header('Location: index.html');
@@ -6,7 +6,7 @@ if (empty(($_SESSION['username']))) {
 }
 ?>  
 <?php
-    $con=mysqli_connect("localhost","root","","guests") or die(mysqli_error());
+    $con=mysqli_connect("localhost:3307","root","","guests") or die(mysqli_error());
     if(mysqli_connect_errno())
         echo "Failed to connect to Database : ".mysqli_connect_error();
     $query = "SELECT * FROM `guest_info` WHERE booking_status='PENDING' ";
@@ -33,6 +33,9 @@ if (empty(($_SESSION['username']))) {
                     <tr>
                         <th>S.No.</th>
                         <th>Booking ID</th>
+                        <th>User ID</th>
+                        <th>Indentor name</th>
+                        <th>Guest name</th>
                         <th>Rooms</th>
                         <th>Check In</th>
                         <th>Check Out</th>
@@ -51,6 +54,9 @@ if (empty(($_SESSION['username']))) {
                                 <tr>
                                 <td>'.$serial_number.'</td>
                                 <td>'.$row["booking_id"].'</td>
+                                <td>'.$row["user_id"].'</td>
+                                <td>'.$row["username"].'</td>
+                                <td>'.$row["name"].'</td>
                                 <td>'.$row["rooms"].'</td>
                                 <td>'.$row["check_in"].'</td>
                                 <td>'.$row["check_out"].'</td>
