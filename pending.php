@@ -6,7 +6,7 @@ if (empty(($_SESSION['username']))) {
 }
 ?> 
 <?php
-    $con=mysqli_connect("localhost","root","","guests") or die(mysqli_error());
+    $con=mysqli_connect("localhost:3307","root","","guests") or die(mysqli_error());
     if(mysqli_connect_errno())
         echo "Failed to connect to Database : ".mysqli_connect_error();
     $query = "SELECT * FROM `guest_info` WHERE payment_status='PENDING' AND booking_status='CONFIRMED' ";
@@ -47,10 +47,13 @@ if (empty(($_SESSION['username']))) {
                     <tr>
                         <th>S.No.</th>
                         <th>Booking ID</th>
+                        <th>User ID</th>
+                        <th>Indentor name</th>
+                        <th>Guest name</th>
                         <th>Rooms</th>
                         <th>Check In</th>
                         <th>Check Out</th>
-                        <th>Proof of Payment</th>
+                        <th>Proof of Purpose of Visit</th>
                         <th>Payment status</th>
                     </tr>
                     <?php
@@ -64,6 +67,9 @@ if (empty(($_SESSION['username']))) {
                                 <tr>
                                 <td><?php echo $serial_number ?></td>
                                 <td><?php echo $row["booking_id"] ?></td>
+                                <td><?php echo $row["user_id"] ?></td>
+                                <td><?php echo $row["username"] ?></td>
+                                <td><?php echo $row["name"] ?></td>
                                 <td><?php echo $row["rooms"] ?></td>
                                 <td><?php echo $row["check_in"] ?></td>
                                 <td><?php echo $row["check_out"] ?></td>
