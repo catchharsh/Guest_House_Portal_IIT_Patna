@@ -1,4 +1,4 @@
- <?php
+<?php
 session_start();
 if (empty(($_SESSION['username']))) {
 	header('Location: index.html');
@@ -27,16 +27,7 @@ if (empty(($_SESSION['username']))) {
             alert("User id should be a valid positive numeric value");
             return false;
           }
-          if(Date.parse(startDt)>Date.parse(endDt))
-          {
-            alert("Check out date should not be before check in date");
-            return false;
-          }
-          if(Date.parse(cur)>Date.parse(startDt))
-          {
-            alert("Check in date is in the past");
-            return false;
-          }
+          
     }
 </script>
 <body>
@@ -62,10 +53,30 @@ if (empty(($_SESSION['username']))) {
                     <option value="CONFIRMED">CONFIRMED</option>
                 </select>
             </div>
+            <div class='input-group'>
+                <label>Sort by:</label> 
+                <select name="sort_order" id='sort_order' >
+                    <option value="NONE">NONE</option>
+                    <option value="user_ID ASC">User_ID ASC</option>
+                    <option value="user_ID DESC">User_ID DESC</option>
+                    <option value="name ASC">Guest name ASC</option>
+                    <option value="name DESC">Guest name DESC</option>
+                    <option value="username ASC">Indentor name ASC</option>
+                    <option value="username DESC">Indentor name DESC</option>
+                    <option value="check_in ASC">Check in ASC</option>
+                    <option value="check_in DESC">Check in DESC</option>
+                    <option value="check_out ASC">Check out ASC</option>
+                    <option value="check_out DESC">Check out DESC</option>
+                    <option value="payment_status ASC">Payment status ASC</option>
+                    <option value="payment_status DESC">Payment status DESC</option>
+                    <option value="booking_status ASC">Booking status ASC</option>
+                    <option value="booking_status DESC">Booking status DESC</option>
+                </select>
+            </div>
             <div style="text-align:center;"><input type="submit" class='btn' name="submit" value="Submit"></div>
       </form>
 <?php
-    $con=mysqli_connect("localhost","root","","guests") or die(mysqli_error());
+    $con=mysqli_connect("localhost:3307","root","","guests") or die(mysqli_error());
     if(mysqli_connect_errno())
         echo "Failed to connect to Database : ".mysqli_connect_error();
     if(isset($_POST['submit'])) 
@@ -77,6 +88,7 @@ if (empty(($_SESSION['username']))) {
         $check_out=$_POST['check_out'];
         $payment=$_POST['payment'];
         $confirmation=$_POST['confirmation'];
+        $sort_order=$_POST['sort_order'];
         if($id!=0)
         {
             if($first==0)
@@ -127,6 +139,8 @@ if (empty(($_SESSION['username']))) {
             else
                 $query.=" AND booking_status='$confirmation' ";  
         }
+        if($sort_order!="NONE")
+            $query.=" ORDER by $sort_order ";
         $result = mysqli_query($con, $query);
    ?>
   <div class="container">
@@ -137,6 +151,8 @@ if (empty(($_SESSION['username']))) {
               <tr>
                   <th>S.No.</th>
                   <th>User ID</th>
+                  <th>Indentor name</th>
+                  <th>Guest name</th>
                   <th>Check In</th>
                   <th>Check Out</th>
                   <th>Payment status</th>
@@ -152,6 +168,8 @@ if (empty(($_SESSION['username']))) {
                     <tr>
                     <td>'.$serial_number.'</td>
                     <td>'.$row["user_id"].'</td>
+                    <td>'.$row["username"].'</td>
+                    <td>'.$row["name"].'</td>
                     <td>'.$row["check_in"].'</td>
                     <td>'.$row["check_out"].'</td>
                     <td>'.$row["payment_status"].'</td>
